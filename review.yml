@@ -1,0 +1,56 @@
+name: University of Alberta
+description: University of Alberta public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/university-of-alberta/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 2
+    summary: >-
+      The University of Alberta has a limited, decentralized public API footprint.
+      The central api.ualberta.ca site is live but is only a placeholder stating
+      the institution is "currently working to improve the way data is cataloged,
+      shared, and governed" — no self-service developer portal or documented
+      institutional APIs. The most concrete confirmed programmatic access is
+      research data via Borealis (Canadian Dataverse): the Native/Search REST API
+      and OAI-PMH endpoint both resolve live and return University of Alberta
+      affiliated datasets (subtree "ualberta"). The ualbertalib GitHub org is real
+      and active (138 repos). No official course/timetable/SIS API exists; the
+      course catalogue and Bear Tracks are web-only, and a third-party unofficial
+      scraping API (Heroku) is now dead (404). The legacy library Dataverse host
+      (dataverse.library.ualberta.ca) did not resolve. No endpoints were fabricated;
+      every cataloged API was probed live.
+    endpoints:
+      - url: https://api.ualberta.ca/
+        status: 200
+        note: Live but placeholder; no documented APIs or developer portal yet.
+      - url: https://www.ualberta.ca/
+        status: 403
+        note: Official site; bot-blocks automated curl but loads in browser.
+      - url: https://borealisdata.ca/api/search?q=*&subtree=ualberta
+        status: 200
+        note: Live Dataverse Search API; returns UAlberta-affiliated datasets as JSON.
+      - url: https://borealisdata.ca/oai?verb=Identify
+        status: 200
+        note: Live OAI-PMH metadata harvesting endpoint for Borealis.
+      - url: https://borealisdata.ca/dataverse/ualberta
+        status: 200
+        note: University of Alberta research data collection landing page.
+      - url: https://github.com/ualbertalib
+        status: 200
+        note: Real, active University of Alberta Library GitHub org (138 repos).
+      - url: https://www.library.ualberta.ca/about/open-data
+        status: 200
+        note: Library open-data page; links to GitHub, Dataverse, Z39.50.
+      - url: https://apps.ualberta.ca/catalogue
+        status: 200
+        note: Course catalogue; web UI only, no documented public JSON API.
+      - url: https://www.beartracks.ualberta.ca/
+        status: 200
+        note: Student SIS portal; SSO-gated web app, no public API.
+      - url: https://dataverse.library.ualberta.ca/
+        status: 0
+        note: Legacy library Dataverse host did not resolve (migrated to Borealis).
+      - url: https://unofficial-ualberta-api.herokuapp.com/docs
+        status: 404
+        note: Third-party unofficial course API; Heroku deployment is dead.

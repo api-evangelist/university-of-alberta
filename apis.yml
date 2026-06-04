@@ -1,0 +1,120 @@
+aid: university-of-alberta
+name: University of Alberta
+description: >-
+  The University of Alberta is a public research university in Edmonton, Alberta,
+  Canada, ranked #67 in the QS World University Rankings 2025. Its public,
+  documented developer/API footprint is modest and decentralized: the central
+  api.ualberta.ca site is a placeholder noting that the institution is "currently
+  working to improve the way data is cataloged, shared, and governed," with no
+  self-service developer portal yet. The strongest confirmed programmatic access
+  is research data via the Borealis (Canadian Dataverse) repository, which exposes
+  the University of Alberta research data collection through a REST Native/Search
+  API and an OAI-PMH metadata endpoint. The University of Alberta Library also
+  maintains an active open-source GitHub organization (ualbertalib). Course
+  catalogue and Bear Tracks remain web-only with no official public API.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/university-of-alberta/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - Research Data
+  - Open Data
+  - Library
+  - Canada
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: university-of-alberta:borealis-dataverse
+    name: University of Alberta Research Data (Borealis Dataverse) API
+    description: >-
+      The University of Alberta research data collection is hosted on Borealis,
+      the Canadian Dataverse Repository (operated by Scholars Portal / Ontario
+      Council of University Libraries). The underlying Dataverse software exposes
+      a REST-based Native API and a Search API supporting the same search, sort,
+      and faceting operations as the web interface. The University of Alberta
+      collection (subtree "ualberta") and its many sub-dataverses are publicly
+      queryable. API tokens (X-Dataverse-key header) are required only for
+      account-scoped or write operations; public searching is open.
+    humanURL: https://borealisdata.ca/dataverse/ualberta
+    baseURL: https://borealisdata.ca/api
+    tags:
+      - Research Data
+      - Dataverse
+      - Open Data
+      - Repository
+    properties:
+      - type: Documentation
+        url: https://borealisdata.ca/guides/en/latest/api/index.html
+      - type: Documentation
+        url: https://borealisdata.ca/guides/en/latest/api/native-api.html
+        title: Native API Guide
+      - type: Documentation
+        url: https://borealisdata.ca/guides/en/latest/api/search.html
+        title: Search API Guide
+      - type: Authentication
+        url: https://borealisdata.ca/guides/en/latest/api/getting-started.html
+        title: API Token (X-Dataverse-key) for scoped/write operations
+  - aid: university-of-alberta:borealis-oai-pmh
+    name: University of Alberta Borealis OAI-PMH Metadata Harvesting
+    description: >-
+      Published University of Alberta collections and datasets on Borealis are
+      harvestable via the Open Archives Initiative Protocol for Metadata
+      Harvesting (OAI-PMH), allowing other repositories and discovery systems to
+      harvest dataset metadata. The Identify verb resolves live at the Borealis
+      OAI endpoint.
+    humanURL: https://borealisdata.ca/guides/en/latest/admin/discoverability.html
+    baseURL: https://borealisdata.ca/oai
+    tags:
+      - OAI-PMH
+      - Metadata Harvesting
+      - Research Data
+      - Repository
+    properties:
+      - type: Documentation
+        url: https://borealisdata.ca/guides/en/latest/admin/discoverability.html
+  - aid: university-of-alberta:library-open-source
+    name: University of Alberta Library Open Source (GitHub)
+    description: >-
+      The University of Alberta Library publishes open-source code through its
+      GitHub organization (ualbertalib), including tools that interact with
+      repository and digital-asset platform APIs (for example DSpace API tooling
+      and AVP Aviary API interaction scripts). This is source code and tooling
+      rather than a single hosted public API, but it documents the library's
+      programmatic integrations.
+    humanURL: https://github.com/ualbertalib
+    tags:
+      - Library
+      - Open Source
+      - Repository
+      - Tooling
+    properties:
+      - type: Documentation
+        url: https://www.library.ualberta.ca/about/open-data
+      - type: GitHub
+        url: https://github.com/ualbertalib
+common:
+  - type: Website
+    url: https://www.ualberta.ca/
+  - type: DeveloperPortal
+    url: https://api.ualberta.ca/
+    title: Placeholder / pre-launch API site
+  - type: GitHub
+    url: https://github.com/ualbertalib
+  - type: LinkedIn
+    url: https://www.linkedin.com/school/university-of-alberta/
+  - type: Plans
+    url: plans/university-of-alberta-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/university-of-alberta-rate-limits.yml
+  - type: FinOps
+    url: finops/university-of-alberta-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
