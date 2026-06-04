@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-alberta/main/json-schema/university-of-alberta-search-item-schema.json",
+  "title": "BorealisSearchItem",
+  "description": "A single result item returned by the Borealis (Dataverse) Search API for the University of Alberta collection.",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "type": { "type": "string", "enum": ["dataverse", "dataset", "file"] },
+    "url": { "type": "string", "format": "uri" },
+    "global_id": { "type": "string" },
+    "description": { "type": "string" },
+    "published_at": { "type": "string", "format": "date-time" },
+    "publisher": { "type": "string" },
+    "citationHtml": { "type": "string" },
+    "citation": { "type": "string" },
+    "identifier_of_dataverse": { "type": "string" },
+    "name_of_dataverse": { "type": "string" },
+    "publicationStatuses": { "type": "array", "items": { "type": "string" } },
+    "storageIdentifier": { "type": "string" },
+    "keywords": { "type": "array", "items": { "type": "string" } },
+    "subjects": { "type": "array", "items": { "type": "string" } },
+    "fileCount": { "type": "integer" },
+    "versionId": { "type": "integer" },
+    "versionState": { "type": "string" },
+    "majorVersion": { "type": "integer" },
+    "minorVersion": { "type": "integer" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "contacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "affiliation": { "type": "string" }
+        }
+      }
+    },
+    "producers": { "type": "array", "items": { "type": "string" } },
+    "geographicCoverage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "country": { "type": "string" },
+          "state": { "type": "string" },
+          "city": { "type": "string" }
+        }
+      }
+    },
+    "authors": { "type": "array", "items": { "type": "string" } },
+    "publications": { "type": "array", "items": { "type": "object" } },
+    "relatedMaterial": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": ["name", "type", "url"]
+}

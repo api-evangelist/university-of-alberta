@@ -1,0 +1,56 @@
+vocabulary:
+  name: University of Alberta Research Data (Borealis Dataverse) Vocabulary
+  description: >-
+    Controlled vocabulary of terms observed in the publicly accessible Borealis
+    (Canadian Dataverse Repository) Search and Native API serving the University
+    of Alberta research data collection (subtree "ualberta").
+  version: "1.0.0"
+  terms:
+    - term: Borealis
+      definition: >-
+        The Canadian Dataverse Repository, operated by Scholars Portal / Ontario
+        Council of University Libraries, hosting the University of Alberta
+        research data collection.
+      tags: [platform, repository]
+    - term: Dataverse
+      definition: >-
+        The open-source research data repository software powering Borealis;
+        exposes a REST Native API and a Search API.
+      tags: [software, platform]
+    - term: subtree
+      definition: >-
+        A query parameter naming a dataverse alias to scope search results; use
+        "ualberta" for the University of Alberta collection.
+      tags: [parameter, scope]
+    - term: dataset
+      definition: >-
+        A container of research data files plus descriptive metadata, identified
+        by a persistent global_id (DOI).
+      tags: [object, data]
+    - term: dataverse
+      definition: >-
+        A collection (subtree) that groups datasets and other dataverses.
+      tags: [object, collection]
+    - term: global_id
+      definition: >-
+        The persistent identifier of a dataset, typically a DOI such as
+        doi:10.7939/DVN/10899.
+      tags: [identifier]
+    - term: versionState
+      definition: >-
+        Lifecycle state of a dataset version, e.g. RELEASED or DRAFT.
+      tags: [field, lifecycle]
+    - term: X-Dataverse-key
+      definition: >-
+        HTTP header carrying an API token, required only for account-scoped or
+        write operations; public search and info are open.
+      tags: [authentication, header]
+    - term: OAI-PMH
+      definition: >-
+        Open Archives Initiative Protocol for Metadata Harvesting, available at
+        the Borealis OAI endpoint for harvesting dataset metadata.
+      tags: [protocol, metadata]
+    - term: total_count
+      definition: >-
+        The total number of results matching a search query across all pages.
+      tags: [field, pagination]

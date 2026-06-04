@@ -1,0 +1,275 @@
+openapi: 3.0.3
+info:
+  title: University of Alberta Research Data (Borealis Dataverse) API
+  description: >-
+    Scoped OpenAPI 3.0 description of the publicly accessible, read-only Borealis
+    (Canadian Dataverse Repository) endpoints used to query the University of
+    Alberta research data collection (subtree "ualberta"). Borealis runs the
+    open-source Dataverse software; the full machine-readable spec is published
+    by the server at https://borealisdata.ca/openapi (OpenAPI 3.0.3, Dataverse
+    API, v6.8.1-SP). This document captures only the public Search and Info
+    operations confirmed live against the production host. API tokens
+    (X-Dataverse-key header) are required only for account-scoped or write
+    operations; public searching is open.
+  version: v6.8.1-SP
+  contact:
+    name: API Evangelist
+    url: https://borealisdata.ca/dataverse/ualberta
+  license:
+    name: Apache-2.0
+    url: https://github.com/IQSS/dataverse/blob/develop/LICENSE.md
+servers:
+  - url: https://borealisdata.ca/api
+    description: Borealis Dataverse production Native/Search API
+paths:
+  /info/version:
+    get:
+      operationId: getVersion
+      summary: Get Dataverse version
+      description: Returns the running Dataverse software version and build.
+      tags:
+        - Info
+      responses:
+        '200':
+          description: Version information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionResponse'
+  /search:
+    get:
+      operationId: search
+      summary: Search the Borealis repository
+      description: >-
+        Searches datasets, dataverses, and files. Supports the same search,
+        sort, and faceting operations as the web interface. Scope queries to the
+        University of Alberta collection using subtree=ualberta.
+      tags:
+        - Search
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Search query string. Use * to match all.
+          schema:
+            type: string
+        - name: subtree
+          in: query
+          required: false
+          description: >-
+            Dataverse alias to scope results. Use "ualberta" for the University
+            of Alberta collection. May be repeated.
+          schema:
+            type: string
+        - name: type
+          in: query
+          required: false
+          description: Restrict results to a single object type.
+          schema:
+            type: string
+            enum:
+              - dataverse
+              - dataset
+              - file
+        - name: per_page
+          in: query
+          required: false
+          description: Number of results per page (max 1000).
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 1000
+            default: 10
+        - name: start
+          in: query
+          required: false
+          description: Zero-based offset of the first result to return.
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: sort
+          in: query
+          required: false
+          description: Field to sort by (e.g. name, date).
+          schema:
+            type: string
+        - name: order
+          in: query
+          required: false
+          description: Sort order.
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+      responses:
+        '200':
+          description: A page of search results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+        '400':
+          description: Bad request (e.g. missing q parameter).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    DataverseApiKey:
+      type: apiKey
+      in: header
+      name: X-Dataverse-key
+      description: >-
+        API token required only for account-scoped or write operations. Public
+        search and info endpoints do not require it.
+  schemas:
+    VersionResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        data:
+          type: object
+          properties:
+            version:
+              type: string
+              example: v6.8.1-SP
+            build:
+              type: string
+              nullable: true
+    SearchResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        data:
+          $ref: '#/components/schemas/SearchData'
+    SearchData:
+      type: object
+      properties:
+        q:
+          type: string
+        total_count:
+          type: integer
+        start:
+          type: integer
+        spelling_alternatives:
+          type: object
+          additionalProperties: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchItem'
+        count_in_response:
+          type: integer
+    SearchItem:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - dataverse
+            - dataset
+            - file
+        url:
+          type: string
+          format: uri
+        global_id:
+          type: string
+        description:
+          type: string
+        published_at:
+          type: string
+          format: date-time
+        publisher:
+          type: string
+        citationHtml:
+          type: string
+        citation:
+          type: string
+        identifier_of_dataverse:
+          type: string
+        name_of_dataverse:
+          type: string
+        publicationStatuses:
+          type: array
+          items:
+            type: string
+        storageIdentifier:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        subjects:
+          type: array
+          items:
+            type: string
+        fileCount:
+          type: integer
+        versionId:
+          type: integer
+        versionState:
+          type: string
+        majorVersion:
+          type: integer
+        minorVersion:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        contacts:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              affiliation:
+                type: string
+        producers:
+          type: array
+          items:
+            type: string
+        geographicCoverage:
+          type: array
+          items:
+            type: object
+            properties:
+              country:
+                type: string
+              state:
+                type: string
+              city:
+                type: string
+        authors:
+          type: array
+          items:
+            type: string
+        publications:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        relatedMaterial:
+          type: array
+          items:
+            type: string
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ERROR
+        message:
+          type: string

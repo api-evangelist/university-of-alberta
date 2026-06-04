@@ -59,6 +59,18 @@ apis:
       - type: Authentication
         url: https://borealisdata.ca/guides/en/latest/api/getting-started.html
         title: API Token (X-Dataverse-key) for scoped/write operations
+      - type: OpenAPI
+        url: openapi/university-of-alberta-borealis-dataverse.yaml
+        title: Scoped OpenAPI 3.0 (public Search and Info operations)
+      - type: x-json-schema
+        url: json-schema/university-of-alberta-search-item-schema.json
+        title: JSON Schema for Borealis search result item
+      - type: x-vocabulary
+        url: vocabulary/university-of-alberta-vocabulary.yml
+      - type: x-rules
+        url: rules/university-of-alberta-rules.yml
+      - type: x-json-ld
+        url: json-ld/university-of-alberta-context.jsonld
   - aid: university-of-alberta:borealis-oai-pmh
     name: University of Alberta Borealis OAI-PMH Metadata Harvesting
     description: >-

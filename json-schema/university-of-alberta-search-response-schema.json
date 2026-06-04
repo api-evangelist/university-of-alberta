@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-alberta/main/json-schema/university-of-alberta-search-response-schema.json",
+  "title": "BorealisSearchResponse",
+  "description": "Envelope returned by the Borealis (Dataverse) Search API.",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string", "enum": ["OK", "ERROR"] },
+    "data": {
+      "type": "object",
+      "properties": {
+        "q": { "type": "string" },
+        "total_count": { "type": "integer" },
+        "start": { "type": "integer" },
+        "spelling_alternatives": { "type": "object" },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "university-of-alberta-search-item-schema.json"
+          }
+        },
+        "count_in_response": { "type": "integer" }
+      },
+      "required": ["items", "total_count"]
+    }
+  },
+  "required": ["status", "data"]
+}

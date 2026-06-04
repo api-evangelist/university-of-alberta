@@ -1,0 +1,53 @@
+extends: []
+formats:
+  - oas3
+documentationUrl: https://borealisdata.ca/guides/en/latest/api/index.html
+rules:
+  ual-borealis-https-server:
+    description: Borealis API servers must use HTTPS.
+    severity: error
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: '^https://'
+
+  ual-borealis-response-envelope:
+    description: Borealis JSON responses wrap payloads in a status/data envelope.
+    severity: warn
+    given: $.components.schemas[?(@property.match(/Response$/))].properties
+    then:
+      - field: status
+        function: truthy
+      - field: data
+        function: truthy
+
+  ual-borealis-operation-id:
+    description: Every operation should declare an operationId.
+    severity: warn
+    given: $.paths[*][get,post,put,delete]
+    then:
+      field: operationId
+      function: truthy
+
+  ual-borealis-search-requires-q:
+    description: The search operation must keep a required q query parameter.
+    severity: error
+    given: $.paths['/search'].get.parameters[?(@.name=='q')]
+    then:
+      field: required
+      function: truthy
+
+  ual-borealis-apikey-header:
+    description: The Dataverse API key uses the X-Dataverse-key header.
+    severity: warn
+    given: $.components.securitySchemes.DataverseApiKey
+    then:
+      - field: in
+        function: pattern
+        functionOptions:
+          match: '^header$'
+      - field: name
+        function: pattern
+        functionOptions:
+          match: '^X-Dataverse-key$'

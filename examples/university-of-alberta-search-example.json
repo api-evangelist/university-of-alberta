@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://borealisdata.ca/api/search?q=*&subtree=ualberta&type=dataset&per_page=1"
+  },
+  "response": {
+    "status": "OK",
+    "data": {
+      "q": "*",
+      "total_count": 713,
+      "start": 0,
+      "spelling_alternatives": {},
+      "items": [
+        {
+          "name": "Evidence-Based Approach to Dietary Management of Prader-Willi Syndrome (PWS)",
+          "type": "dataset",
+          "url": "https://doi.org/10.7939/DVN/10899",
+          "global_id": "doi:10.7939/DVN/10899",
+          "description": "The purpose of this study is to look at how different types of diets (low carbohydrate or low fat) affect the level of hormones in blood, metabolism, and appetite in children with PWS. The results from this study will provide information that can be used to design evidence-based diet plans for children with PWS.",
+          "published_at": "2016-11-07T00:00:00Z",
+          "publisher": "Women and Children's Health Research Institute (WCHRI)",
+          "citation": "Haqq, Andrea; Freemark, Michael; Irizarry, Krystal; McCarthy, Mimi; Mackenzie, Michelle; Mager, Diana; Newgard, Christopher, 2016, \"Evidence-Based Approach to Dietary Management of Prader-Willi Syndrome (PWS)\", https://doi.org/10.7939/DVN/10899, Borealis, V2",
+          "identifier_of_dataverse": "UAL-WCHRI",
+          "name_of_dataverse": "Women and Children's Health Research Institute (WCHRI)",
+          "publicationStatuses": ["Published"],
+          "storageIdentifier": "s3://10.7939/DVN/10899",
+          "keywords": ["ghrelin", "appetite regulation", "pediatrics", "nutrition", "prader-willi syndrome", "pediatric obesity"],
+          "subjects": ["Medicine, Health and Life Sciences"],
+          "fileCount": 0,
+          "versionId": 14484,
+          "versionState": "RELEASED",
+          "majorVersion": 2,
+          "minorVersion": 2,
+          "createdAt": "2016-09-29T20:50:09Z",
+          "updatedAt": "2017-05-26T21:03:27Z",
+          "contacts": [
+            { "name": "Haqq, Andrea", "affiliation": "University of Alberta" }
+          ],
+          "producers": ["Haqq, Andrea", "Freemark, Michael", "Irizarry, Krystal"],
+          "geographicCoverage": [
+            { "country": "Canada", "state": "Alberta", "city": "Edmonton" },
+            { "country": "United States", "state": "North Carolina", "city": "Durham" }
+          ],
+          "authors": ["Haqq, Andrea", "Freemark, Michael", "Irizarry, Krystal", "McCarthy, Mimi", "Mackenzie, Michelle", "Mager, Diana", "Newgard, Christopher"]
+        }
+      ],
+      "count_in_response": 1
+    }
+  }
+}

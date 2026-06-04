@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://borealisdata.ca/api/info/version"
+  },
+  "response": {
+    "status": "OK",
+    "data": {
+      "version": "v6.8.1-SP",
+      "build": null
+    }
+  }
+}
