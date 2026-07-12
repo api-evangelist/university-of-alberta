@@ -110,6 +110,10 @@ apis:
       - type: GitHub
         url: https://github.com/ualbertalib
 common:
+  - type: DomainSecurity
+    url: security/university-of-alberta-domain-security.yml
+  - type: Authentication
+    url: authentication/university-of-alberta-authentication.yml
   - type: Website
     url: https://www.ualberta.ca/
   - type: DeveloperPortal

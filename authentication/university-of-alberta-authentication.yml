@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/university-of-alberta-borealis-dataverse.yaml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: DataverseApiKey
+  type: apiKey
+  in: header
+  parameter: X-Dataverse-key
+  description: API token required only for account-scoped or write operations. Public search
+    and info endpoints do not require it.
+  sources:
+  - openapi/university-of-alberta-borealis-dataverse.yaml
