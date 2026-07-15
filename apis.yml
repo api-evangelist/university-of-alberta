@@ -110,6 +110,8 @@ apis:
       - type: GitHub
         url: https://github.com/ualbertalib
 common:
+  - type: AgenticAccess
+    url: agentic-access/university-of-alberta-agentic-access.yml
   - type: DomainSecurity
     url: security/university-of-alberta-domain-security.yml
   - type: Authentication
