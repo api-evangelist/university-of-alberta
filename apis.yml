@@ -13,9 +13,22 @@ description: >-
   maintains an active open-source GitHub organization (ualbertalib). Course
   catalogue and Bear Tracks remain web-only with no official public API.
 type: Index
+accessModel:
+  pricing: free
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Free · Self-serve signup
+  confidence: high
+  source:
+    - plans
+    - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/university-of-alberta.png
 url: https://raw.githubusercontent.com/api-evangelist/university-of-alberta/refs/heads/main/apis.yml
 tags:
   - Education
@@ -26,59 +39,15 @@ tags:
   - Library
   - Canada
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-07-25'
 specificationVersion: '0.19'
 apis:
-  - aid: university-of-alberta:borealis-dataverse
-    name: University of Alberta Research Data (Borealis Dataverse) API
-    description: >-
-      The University of Alberta research data collection is hosted on Borealis,
-      the Canadian Dataverse Repository (operated by Scholars Portal / Ontario
-      Council of University Libraries). The underlying Dataverse software exposes
-      a REST-based Native API and a Search API supporting the same search, sort,
-      and faceting operations as the web interface. The University of Alberta
-      collection (subtree "ualberta") and its many sub-dataverses are publicly
-      queryable. API tokens (X-Dataverse-key header) are required only for
-      account-scoped or write operations; public searching is open.
-    humanURL: https://borealisdata.ca/dataverse/ualberta
-    baseURL: https://borealisdata.ca/api
-    tags:
-      - Research Data
-      - Dataverse
-      - Open Data
-      - Repository
-    properties:
-      - type: Documentation
-        url: https://borealisdata.ca/guides/en/latest/api/index.html
-      - type: Documentation
-        url: https://borealisdata.ca/guides/en/latest/api/native-api.html
-        title: Native API Guide
-      - type: Documentation
-        url: https://borealisdata.ca/guides/en/latest/api/search.html
-        title: Search API Guide
-      - type: Authentication
-        url: https://borealisdata.ca/guides/en/latest/api/getting-started.html
-        title: API Token (X-Dataverse-key) for scoped/write operations
-      - type: OpenAPI
-        url: openapi/university-of-alberta-borealis-dataverse.yaml
-        title: Scoped OpenAPI 3.0 (public Search and Info operations)
-      - type: x-json-schema
-        url: json-schema/university-of-alberta-search-item-schema.json
-        title: JSON Schema for Borealis search result item
-      - type: x-vocabulary
-        url: vocabulary/university-of-alberta-vocabulary.yml
-      - type: x-rules
-        url: rules/university-of-alberta-rules.yml
-      - type: x-json-ld
-        url: json-ld/university-of-alberta-context.jsonld
   - aid: university-of-alberta:borealis-oai-pmh
     name: University of Alberta Borealis OAI-PMH Metadata Harvesting
     description: >-
-      Published University of Alberta collections and datasets on Borealis are
-      harvestable via the Open Archives Initiative Protocol for Metadata
-      Harvesting (OAI-PMH), allowing other repositories and discovery systems to
-      harvest dataset metadata. The Identify verb resolves live at the Borealis
-      OAI endpoint.
+      Published University of Alberta collections and datasets on Borealis are harvestable via the Open
+      Archives Initiative Protocol for Metadata Harvesting (OAI-PMH), allowing other repositories and discovery
+      systems to harvest dataset metadata. The Identify verb resolves live at the Borealis OAI endpoint.
     humanURL: https://borealisdata.ca/guides/en/latest/admin/discoverability.html
     baseURL: https://borealisdata.ca/oai
     tags:
@@ -89,6 +58,58 @@ apis:
     properties:
       - type: Documentation
         url: https://borealisdata.ca/guides/en/latest/admin/discoverability.html
+  - aid: university-of-alberta:university-of-alberta-info-api
+    name: University of Alberta Info API
+    description: The Info API from University of Alberta — 1 operation(s) for info.
+    humanURL: https://borealisdata.ca/dataverse/ualberta
+    baseURL: https://borealisdata.ca/api
+    tags:
+      - Info
+    properties:
+      - type: OpenAPI
+        url: openapi/university-of-alberta-info-api-openapi.yml
+      - type: Documentation
+        url: https://borealisdata.ca/guides/en/latest/api/index.html
+      - type: Documentation
+        url: https://borealisdata.ca/guides/en/latest/api/native-api.html
+      - type: Documentation
+        url: https://borealisdata.ca/guides/en/latest/api/search.html
+      - type: Authentication
+        url: https://borealisdata.ca/guides/en/latest/api/getting-started.html
+      - type: x-json-schema
+        url: json-schema/university-of-alberta-search-item-schema.json
+      - type: x-vocabulary
+        url: vocabulary/university-of-alberta-vocabulary.yml
+      - type: x-rules
+        url: rules/university-of-alberta-rules.yml
+      - type: x-json-ld
+        url: json-ld/university-of-alberta-context.jsonld
+  - aid: university-of-alberta:university-of-alberta-search-api
+    name: University of Alberta Search API
+    description: The Search API from University of Alberta — 1 operation(s) for search.
+    humanURL: https://borealisdata.ca/dataverse/ualberta
+    baseURL: https://borealisdata.ca/api
+    tags:
+      - Search
+    properties:
+      - type: OpenAPI
+        url: openapi/university-of-alberta-search-api-openapi.yml
+      - type: Documentation
+        url: https://borealisdata.ca/guides/en/latest/api/index.html
+      - type: Documentation
+        url: https://borealisdata.ca/guides/en/latest/api/native-api.html
+      - type: Documentation
+        url: https://borealisdata.ca/guides/en/latest/api/search.html
+      - type: Authentication
+        url: https://borealisdata.ca/guides/en/latest/api/getting-started.html
+      - type: x-json-schema
+        url: json-schema/university-of-alberta-search-item-schema.json
+      - type: x-vocabulary
+        url: vocabulary/university-of-alberta-vocabulary.yml
+      - type: x-rules
+        url: rules/university-of-alberta-rules.yml
+      - type: x-json-ld
+        url: json-ld/university-of-alberta-context.jsonld
   - aid: university-of-alberta:library-open-source
     name: University of Alberta Library Open Source (GitHub)
     description: >-
