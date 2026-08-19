@@ -1,0 +1,104 @@
+{
+  "item": [
+    {
+      "id": "d3a34ba0-e680-436a-81cb-ad8aac635c0c",
+      "name": "Info",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "aaee64cf-838b-4b12-89c3-017bf2ee2f4a",
+          "name": "Get Dataverse version",
+          "request": {
+            "name": "Get Dataverse version",
+            "description": {
+              "content": "Returns the running Dataverse software version and build.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "info",
+                "version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b46f3f58-f9e9-4a56-a011-8a644fdef7dc",
+              "name": "Version information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "info",
+                    "version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"OK\",\n  \"data\": {\n    \"version\": \"v6.8.1-SP\",\n    \"build\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://borealisdata.ca/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "37df7b7a-e91e-454a-9b56-1a0b0c6ff518",
+    "name": "University of Alberta Research Data (Borealis Dataverse) Info API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Scoped OpenAPI 3.0 description of the publicly accessible, read-only Borealis (Canadian Dataverse Repository) endpoints used to query the University of Alberta research data collection (subtree \"ualberta\"). Borealis runs the open-source Dataverse software; the full machine-readable spec is published by the server at https://borealisdata.ca/openapi (OpenAPI 3.0.3, Dataverse API, v6.8.1-SP). This document captures only the public Search and Info operations confirmed live against the production host. API tokens (X-Dataverse-key header) are required only for account-scoped or write operations; public searching is open.\n\nContact Support:\n Name: API Evangelist",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "University of Alberta Research Data (Borealis Dataverse) Info API",
+    "version": "v6.8.1-SP"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Dataverse version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://borealisdata.ca/api/info/version"
+          },
+          "docs": "Returns the running Dataverse software version and build."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
