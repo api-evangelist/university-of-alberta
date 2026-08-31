@@ -1,43 +1,52 @@
 aid: university-of-alberta
 name: University of Alberta
+x-type: university
+x-category: Public Research University
 description: >-
-  The University of Alberta is a public research university in Edmonton, Alberta,
-  Canada, ranked #67 in the QS World University Rankings 2025. Its public,
-  documented developer/API footprint is modest and decentralized: the central
-  api.ualberta.ca site is a placeholder noting that the institution is "currently
-  working to improve the way data is cataloged, shared, and governed," with no
-  self-service developer portal yet. The strongest confirmed programmatic access
-  is research data via the Borealis (Canadian Dataverse) repository, which exposes
-  the University of Alberta research data collection through a REST Native/Search
-  API and an OAI-PMH metadata endpoint. The University of Alberta Library also
-  maintains an active open-source GitHub organization (ualbertalib). Course
-  catalogue and Bear Tracks remain web-only with no official public API.
+  The University of Alberta is a public research university in Edmonton, Alberta, Canada, and a
+  member of the U15 Group of Canadian Research Universities. It operates no public API product.
+  Its central developer site, api.ualberta.ca, is a live placeholder that says only that the
+  university "is currently working to improve the way data is cataloged, shared, and governed"
+  and gives an email address; there is no portal, no key issuance and no catalog behind it. The
+  one machine-readable contract the institution itself publishes and runs is its SAML 2.0
+  identity provider metadata at login.ualberta.ca, which is institution-operated by definition
+  and is the only surface in this profile whose operator is the university. Everything else that
+  looks like a University of Alberta API is a tenancy on someone else's platform: ERA, the
+  institutional repository, migrated off the library's own Jupiter application at
+  era.library.ualberta.ca onto Scholaris, the OCUL/Scholars Portal national DSpace service, and
+  now answers as ualberta.scholaris.ca with a DSpace REST API and an OAI-PMH endpoint; research
+  data lives in the university's collection on Borealis, the Canadian Dataverse Repository run
+  by the same consortium; the library catalogue is Ex Libris Alma and Primo VE, whose Z39.50
+  server the library documents in its own words; and its 90,338 DOIs are registered through
+  DataCite. The course catalogue and Bear Tracks are HTML only — every JSON path probed on
+  apps.ualberta.ca returns 404 or 410, which is why the third-party UAlberta course APIs that
+  exist are HTML scrapers. The university's real engineering output is open source rather than
+  hosted: the University of Alberta Library GitHub organization is active and substantial, and
+  includes its own OAI-PMH implementation and DSpace and DataCite client tooling.
 type: Index
 deliveryModel:
-  model: saas
+  model: unknown
   open_source: false
-  commercial: true
+  commercial: false
   callable_host: true
-  label: Hosted service · you call their endpoint
+  label: No API product · one institution-run identity endpoint plus vendor-platform tenancies
   confidence: high
   source:
-  - openapi
-  - pricing
-  generated: '2026-08-28'
-  method: derived
+    - probed
+  generated: '2026-08-30'
+  method: probed
 accessModel:
   pricing: free
-  onboarding: self-serve
+  onboarding: none
   trial: false
   try_now: true
-  public: false
-  label: Free · Self-serve signup
+  public: true
+  label: Free · No signup, no key issuance, no developer program
   confidence: high
   source:
-    - plans
-    - authentication
-  generated: '2026-07-22'
-  method: derived
+    - probed
+  generated: '2026-08-30'
+  method: probed
 position: Consumer
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/university-of-alberta.png
@@ -46,123 +55,202 @@ tags:
   - Education
   - Higher Education
   - University
-  - Research Data
-  - Open Data
-  - Library
   - Canada
+  - U15 Group of Canadian Research Universities
+  - Research Data
+  - Research Repository
+  - Library
+  - Identity Federation
+  - OAI-PMH
 created: '2026-06-03'
-modified: '2026-07-25'
+modified: '2026-08-30'
 specificationVersion: '0.23'
 apis:
-  - aid: university-of-alberta:borealis-oai-pmh
-    name: University of Alberta Borealis OAI-PMH Metadata Harvesting
+  - aid: university-of-alberta:identity-federation
+    name: University of Alberta SAML 2.0 Identity Provider Metadata
+    x-operator: institution
     description: >-
-      Published University of Alberta collections and datasets on Borealis are harvestable via the Open
-      Archives Initiative Protocol for Metadata Harvesting (OAI-PMH), allowing other repositories and discovery
-      systems to harvest dataset metadata. The Identify verb resolves live at the Borealis OAI endpoint.
-    humanURL: https://borealisdata.ca/guides/en/latest/admin/discoverability.html
-    baseURL: https://borealisdata.ca/oai
+      The university's own SAML 2.0 identity provider metadata document, served from its own
+      domain. It declares entityID https://login.ualberta.ca/saml2/idp/metadata.php, an
+      IDPSSODescriptor with SingleSignOn over HTTP-Redirect and HTTP-POST plus SingleLogout, the
+      Shibboleth metadata extension shibmd:Scope of ualberta.ca, mdrpi:RegistrationInfo with
+      registration authority urn:mace:ualberta.ca, and OrganizationName in English and French.
+      This is the only contract in this profile the University of Alberta both writes and runs —
+      identity federation is institution-operated by definition, and it is the surface class this
+      cohort most consistently fails to catalog.
+    humanURL: https://login.ualberta.ca/
+    baseURL: https://login.ualberta.ca/saml2/idp/metadata.php
     tags:
+      - Identity Federation
+      - SAML
+      - Shibboleth
+      - Single Sign-On
+    properties:
+      - type: Documentation
+        url: https://login.ualberta.ca/saml2/idp/metadata.php
+      - type: Conformance
+        url: conformance/university-of-alberta-conformance.yml
+  - aid: university-of-alberta:era-scholaris
+    name: ERA — Education and Research Archive (on Scholaris)
+    x-operator: tenant
+    description: >-
+      ERA is the University of Alberta's institutional repository. It was the library's own
+      Samvera/Hyrax application, Jupiter, at era.library.ualberta.ca; that host now redirects to
+      ualberta.scholaris.ca, the university's tenancy on Scholaris, the national DSpace service
+      operated by OCUL/Scholars Portal. The deployment answers as DSpace 8.4 with a HAL+JSON REST
+      API at /server/api and an OAI-PMH 2.0 endpoint whose Identify response names ERA and gives
+      erahelp@ualberta.ca as the administrative contact. The content, the service desk and the
+      DOIs are the university's; the contract is DSpace's and the platform is the consortium's,
+      so no DSpace specification is saved under this institution.
+    humanURL: https://ualberta.scholaris.ca/
+    baseURL: https://ualberta.scholaris.ca/server/api
+    tags:
+      - Research Repository
+      - DSpace
       - OAI-PMH
-      - Metadata Harvesting
+      - Open Access
+    properties:
+      - type: Documentation
+        url: https://ualberta.scholaris.ca/server/api
+      - type: Conformance
+        url: conformance/university-of-alberta-conformance.yml
+  - aid: university-of-alberta:borealis-research-data
+    name: University of Alberta Research Data Collection on Borealis
+    x-operator: tenant
+    description: >-
+      The University of Alberta's research data collection on Borealis, the Canadian Dataverse
+      Repository operated by Scholars Portal / Ontario Council of University Libraries. The
+      collection is scoped by the dataverse alias "ualberta" and is reachable through the shared
+      Dataverse Native and Search APIs and the shared OAI-PMH archive at borealisdata.ca/oai,
+      whose Identify response names the consortium, not the university. Five other institutions
+      in this cohort point at the same host, which is precisely why the generic Dataverse
+      contract is not saved here: the data is the university's, the API is Borealis's.
+    humanURL: https://borealisdata.ca/dataverse/ualberta
+    baseURL: https://borealisdata.ca/api
+    tags:
       - Research Data
+      - Dataverse
+      - OAI-PMH
       - Repository
     properties:
+      - type: Documentation
+        url: https://borealisdata.ca/guides/en/latest/api/index.html
+      - type: Documentation
+        url: https://borealisdata.ca/guides/en/latest/api/search.html
       - type: Documentation
         url: https://borealisdata.ca/guides/en/latest/admin/discoverability.html
-  - aid: university-of-alberta:university-of-alberta-info-api
-    name: University of Alberta Info API
-    description: The Info API from University of Alberta — 1 operation(s) for info.
-    humanURL: https://borealisdata.ca/dataverse/ualberta
-    baseURL: https://borealisdata.ca/api
-    tags:
-      - Info
-    properties:
-      - type: OpenAPI
-        url: openapi/university-of-alberta-info-api-openapi.yml
-      - type: Documentation
-        url: https://borealisdata.ca/guides/en/latest/api/index.html
-      - type: Documentation
-        url: https://borealisdata.ca/guides/en/latest/api/native-api.html
-      - type: Documentation
-        url: https://borealisdata.ca/guides/en/latest/api/search.html
       - type: Authentication
         url: https://borealisdata.ca/guides/en/latest/api/getting-started.html
-      - type: x-json-schema
-        url: json-schema/university-of-alberta-search-item-schema.json
-      - type: x-vocabulary
-        url: vocabulary/university-of-alberta-vocabulary.yml
-      - type: x-rules
-        url: rules/university-of-alberta-rules.yml
-      - type: x-json-ld
-        url: json-ld/university-of-alberta-context.jsonld
-  - aid: university-of-alberta:university-of-alberta-search-api
-    name: University of Alberta Search API
-    description: The Search API from University of Alberta — 1 operation(s) for search.
-    humanURL: https://borealisdata.ca/dataverse/ualberta
-    baseURL: https://borealisdata.ca/api
-    tags:
-      - Search
-    properties:
-      - type: OpenAPI
-        url: openapi/university-of-alberta-search-api-openapi.yml
-      - type: Documentation
-        url: https://borealisdata.ca/guides/en/latest/api/index.html
-      - type: Documentation
-        url: https://borealisdata.ca/guides/en/latest/api/native-api.html
-      - type: Documentation
-        url: https://borealisdata.ca/guides/en/latest/api/search.html
-      - type: Authentication
-        url: https://borealisdata.ca/guides/en/latest/api/getting-started.html
-      - type: x-json-schema
-        url: json-schema/university-of-alberta-search-item-schema.json
-      - type: x-vocabulary
-        url: vocabulary/university-of-alberta-vocabulary.yml
-      - type: x-rules
-        url: rules/university-of-alberta-rules.yml
-      - type: x-json-ld
-        url: json-ld/university-of-alberta-context.jsonld
-  - aid: university-of-alberta:library-open-source
-    name: University of Alberta Library Open Source (GitHub)
+  - aid: university-of-alberta:library-catalogue
+    name: University of Alberta Library Catalogue (Alma Z39.50 + Primo VE)
+    x-operator: tenant
     description: >-
-      The University of Alberta Library publishes open-source code through its
-      GitHub organization (ualbertalib), including tools that interact with
-      repository and digital-asset platform APIs (for example DSpace API tooling
-      and AVP Aviary API interaction scripts). This is source code and tooling
-      rather than a single hosted public API, but it documents the library's
-      programmatic integrations.
-    humanURL: https://github.com/ualbertalib
+      The library's discovery and catalogue layer is Ex Libris. The library publishes its own
+      Z39.50 production server details on a ualberta.ca page — host
+      ualberta.alma.exlibrisgroup.com, port 1921, database 01UOA_INST — and states support for
+      the Bath Profile v1.1 functional area A levels 0 and 1, enumerating the bib-1 attribute
+      combinations. The public discovery front end is Primo VE at search.library.ualberta.ca
+      (view 01UOA_INST:UOA_NDE), on the university's own subdomain but running the vendor's
+      application. Documented by the institution, operated by Ex Libris.
+    humanURL: https://www.ualberta.ca/en/library/research-support/open-data/z3950.html
+    baseURL: z3950://ualberta.alma.exlibrisgroup.com:1921/01UOA_INST
     tags:
       - Library
-      - Open-Source
-      - Repository
-      - Tooling
-    tags_raw:
+      - Library Catalog
+      - Z39.50
+      - Discovery
+    properties:
+      - type: Documentation
+        url: https://www.ualberta.ca/en/library/research-support/open-data/z3950.html
+      - type: Website
+        url: https://search.library.ualberta.ca/
+      - type: Conformance
+        url: conformance/university-of-alberta-conformance.yml
+  - aid: university-of-alberta:datacite-registration
+    name: University of Alberta Library DOI Registration (DataCite)
+    x-operator: tenant
+    description: >-
+      The University of Alberta Library is a registered DataCite repository — client id
+      ualberta.library, symbol UALBERTA.LIBRARY, a member since 2020 — with 90,338 DOIs
+      registered under that client as of 2026-08-30. Its own DataCite record documents that in
+      March 2025 the library shared its credentials with Scholaris for ERA and dropped the
+      shoulder it had used for Jupiter, which is the same migration the repository entry above
+      records. The registrations are the institution's; the registry API is DataCite's.
+    humanURL: https://api.datacite.org/repositories/ualberta.library
+    baseURL: https://api.datacite.org
+    tags:
+      - DataCite
+      - DOI
+      - Persistent Identifiers
+      - Research Data
+    properties:
+      - type: Documentation
+        url: https://api.datacite.org/repositories/ualberta.library
+      - type: Conformance
+        url: conformance/university-of-alberta-conformance.yml
+  - aid: university-of-alberta:library-open-source
+    name: University of Alberta Library Open Source (GitHub)
+    x-operator: institution
+    description: >-
+      The University of Alberta Library's GitHub organization, ualbertalib, holds 138 public
+      repositories and is actively maintained. Judged by what the code says about itself rather
+      than by the host it sits on, it is the institution's own engineering: oaisys implements
+      OAI-PMH for the library's Jupiter repository, jupiter is the repository application itself,
+      dspace_api_tools and datacite-client are its integration clients, and library-cms,
+      NDE-Customization-Package and ual_ojs_stats run library services. This is source code and
+      operational tooling, not a hosted public API, and it is the university's most substantial
+      programmable output.
+    humanURL: https://github.com/ualbertalib
+    tags:
       - Library
       - Open Source
       - Repository
       - Tooling
     properties:
-      - type: Documentation
-        url: https://www.library.ualberta.ca/about/open-data
-      - type: GitHub
+      - type: SourceCode
         url: https://github.com/ualbertalib
+      - type: Documentation
+        url: https://www.ualberta.ca/en/library/research-support/open-data/index.html
 common:
-  - type: AgenticAccess
-    url: agentic-access/university-of-alberta-agentic-access.yml
-  - type: DomainSecurity
-    url: security/university-of-alberta-domain-security.yml
-  - type: Authentication
-    url: authentication/university-of-alberta-authentication.yml
   - type: Website
     url: https://www.ualberta.ca/
   - type: DeveloperPortal
     url: https://api.ualberta.ca/
-    title: Placeholder / pre-launch API site
-  - type: GitHub
+    title: Placeholder — no portal, no catalog, no key issuance
+  - type: IdentityFederation
+    url: https://login.ualberta.ca/saml2/idp/metadata.php
+    title: SAML 2.0 identity provider metadata (institution-operated)
+  - type: ResearchRepository
+    url: https://ualberta.scholaris.ca/
+    title: ERA on Scholaris (OCUL/Scholars Portal DSpace tenancy)
+  - type: OpenData
+    url: https://www.ualberta.ca/en/library/research-support/open-data/index.html
+  - type: LibraryCatalog
+    url: https://search.library.ualberta.ca/
+  - type: CourseCatalog
+    url: https://apps.ualberta.ca/catalogue
+    title: HTML only — no JSON or API surface
+  - type: AIPolicy
+    url: https://www.ualberta.ca/en/artificial-intelligence/artificial-intelligence-framework.html
+    title: Framework for the Responsible Use of AI at the University of Alberta
+  - type: AITooling
+    url: https://www.ualberta.ca/en/artificial-intelligence/index.html
+  - type: Conformance
+    url: conformance/university-of-alberta-conformance.yml
+  - type: GitHubOrganization
     url: https://github.com/ualbertalib
+  - type: Documentation
+    url: https://www.ualberta.ca/en/information-services-and-technology/services/application-development/index.html
+  - type: TermsOfService
+    url: https://www.ualberta.ca/en/policies-procedures/index.html
+  - type: PrivacyPolicy
+    url: https://www.ualberta.ca/en/privacy.html
+  - type: Blog
+    url: https://www.ualberta.ca/en/the-quad/index.html
   - type: LinkedIn
     url: https://www.linkedin.com/school/university-of-alberta/
+  - type: DomainSecurity
+    url: security/university-of-alberta-domain-security.yml
   - type: Plans
     url: plans/university-of-alberta-plans-pricing.yml
   - type: RateLimits
@@ -171,6 +259,60 @@ common:
     url: finops/university-of-alberta-finops.yml
   - type: Review
     url: review.yml
+x-coverage:
+  state: none
+  reason: tenant_only
+  detail: >-
+    Probed 2026-08-30. The University of Alberta publishes exactly one machine-readable contract
+    it also operates: its SAML 2.0 identity provider metadata at login.ualberta.ca, which returns
+    200 application/samlmetadata+xml. There is no institution-operated REST API. api.ualberta.ca
+    returns 200 but the body is a placeholder saying the university is still working out how data
+    is cataloged, shared and governed, and offers only an email address; data.ualberta.ca serves
+    the same byte-identical page. Every other apparent surface is a tenancy: ERA on Scholaris
+    (OCUL DSpace), the research data collection on Borealis (Canadian Dataverse, a host five
+    other institutions in this cohort also claim), the Alma Z39.50 server and Primo VE discovery
+    layer from Ex Libris, and DOI registration through DataCite. The course catalogue is HTML
+    only — apps.ualberta.ca returns 404 for /api and 410 for every .json path tried, so the
+    third-party UAlberta course APIs in the wild are scrapers. The library's Open Journal Systems
+    installation is gone: journals.library.ualberta.ca now 302s to a library publishing page, so
+    there is no Crossref depositing surface either. Twenty files were removed from this repository in this
+    pass — two Borealis-derived OpenAPI documents, the pristine original and its refine report,
+    and the sixteen collections, schemas, structures, examples, rulesets, vocabulary, JSON-LD
+    context, authentication and agentic-access artifacts derived from them. They described the
+    Dataverse software's contract, not the university's.
+  evidence:
+    - url: https://login.ualberta.ca/saml2/idp/metadata.php
+      status: 200
+    - url: https://api.ualberta.ca/
+      status: 200
+    - url: https://data.ualberta.ca/
+      status: 200
+    - url: https://ualberta.scholaris.ca/server/api
+      status: 200
+    - url: https://ualberta.scholaris.ca/server/oai/request?verb=Identify
+      status: 200
+    - url: https://era.library.ualberta.ca/oai?verb=Identify
+      status: 200
+    - url: https://borealisdata.ca/oai?verb=Identify
+      status: 200
+    - url: https://borealisdata.ca/dataverse/ualberta
+      status: 200
+    - url: https://www.ualberta.ca/en/library/research-support/open-data/z3950.html
+      status: 200
+    - url: https://api.datacite.org/repositories?query=alberta
+      status: 200
+    - url: https://apps.ualberta.ca/catalogue
+      status: 200
+    - url: https://apps.ualberta.ca/api
+      status: 404
+    - url: https://apps.ualberta.ca/catalogue/course/cmput.json
+      status: 410
+    - url: https://journals.library.ualberta.ca/index.php/index/oai?verb=Identify
+      status: 302
+    - url: https://library.ualberta.ca/peel/api
+      status: 200
+    - url: https://login.ualberta.ca/idp/shibboleth
+      status: 404
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
