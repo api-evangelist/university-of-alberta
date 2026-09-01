@@ -203,6 +203,11 @@ apis:
     humanURL: https://github.com/ualbertalib
     tags:
       - Library
+      - Open-Source
+      - Repository
+      - Tooling
+    tags_raw:
+      - Library
       - Open Source
       - Repository
       - Tooling
