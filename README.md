@@ -64,24 +64,35 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-The University of Alberta is a public research university in Edmonton, Alberta, Canada, ranked #67 in the QS World University Rankings 2025. This repository catalogs the institution's public developer/API footprint as an [APIs.json](https://apisjson.org) provider profile. The footprint is modest and decentralized: the central `api.ualberta.ca` site is a pre-launch placeholder, with the strongest confirmed programmatic access being research data through the Borealis (Canadian Dataverse) repository.
+The University of Alberta is a public research university in Edmonton, Alberta, Canada, and a member of the U15 Group of Canadian Research Universities. This repository catalogs the institution's public developer/API footprint as an [APIs.json](https://apisjson.org) provider profile.
+
+**The university operates no public API product.** Re-profiled 2026-08-30 under the API Evangelist university pipeline, which settles *who operates* each surface before saving any contract. The only machine-readable contract the institution both writes and runs is its SAML 2.0 identity provider metadata at `login.ualberta.ca`. Everything else that looks like a University of Alberta API is a tenancy on someone else's platform.
 
 - APIs.json: https://raw.githubusercontent.com/api-evangelist/university-of-alberta/refs/heads/main/apis.yml
 - Run with Naftiko: https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=university-of-alberta-api-evangelist&utm_content=repo
 
 ## Type
 
-- Index / Consumer / 3rd-Party
+- University / Public Research University / Index / Consumer / 3rd-Party
 
 ## Tags
 
-Education, Higher Education, University, Research Data, Open Data, Library, Canada
+Education, Higher Education, University, Canada, U15 Group of Canadian Research Universities, Research Data, Research Repository, Library, Identity Federation, OAI-PMH
 
-## APIs
+## Surfaces
 
-- **University of Alberta Research Data (Borealis Dataverse) API** — REST Native/Search API for the UAlberta research data collection on Borealis. Docs: https://borealisdata.ca/guides/en/latest/api/index.html | Collection: https://borealisdata.ca/dataverse/ualberta
-- **University of Alberta Borealis OAI-PMH Metadata Harvesting** — OAI-PMH endpoint for harvesting published UAlberta dataset metadata. Docs: https://borealisdata.ca/guides/en/latest/admin/discoverability.html
-- **University of Alberta Library Open Source (GitHub)** — Library open-source code and API-integration tooling. Docs: https://www.library.ualberta.ca/about/open-data | GitHub: https://github.com/ualbertalib
+Every entry carries an operator. `institution` means the university runs the thing the artifact describes; `tenant` means the data is the university's but the contract and the platform are a vendor's.
+
+- **SAML 2.0 Identity Provider Metadata** — *institution* — https://login.ualberta.ca/saml2/idp/metadata.php (200, `application/samlmetadata+xml`). entityID, IDPSSODescriptor, SSO/SLO endpoints, `shibmd:Scope` of `ualberta.ca`, `mdrpi:RegistrationInfo` `urn:mace:ualberta.ca`.
+- **ERA — Education and Research Archive** — *tenant* — https://ualberta.scholaris.ca (DSpace 8.4 on Scholaris, the OCUL/Scholars Portal national service). REST at `/server/api`, OAI-PMH at `/server/oai/request`. The library's own `era.library.ualberta.ca` now redirects here.
+- **Research data collection on Borealis** — *tenant* — https://borealisdata.ca/dataverse/ualberta (Canadian Dataverse Repository, OCUL/Scholars Portal). Five other institutions in the cohort point at the same host.
+- **Library catalogue (Alma Z39.50 + Primo VE)** — *tenant* — `ualberta.alma.exlibrisgroup.com:1921` db `01UOA_INST`, documented by the library itself; discovery at https://search.library.ualberta.ca.
+- **DOI registration (DataCite)** — *tenant* — client `ualberta.library`, 90,338 DOIs.
+- **University of Alberta Library open source** — *institution* — https://github.com/ualbertalib, 138 public repositories, including its own OAI-PMH implementation (`oaisys`) and DSpace/DataCite client tooling.
+
+## Conformance
+
+- [conformance/university-of-alberta-conformance.yml](conformance/university-of-alberta-conformance.yml) — `education` regime standards, each with the URL fetched and the status it returned: `saml` (institution), `shibboleth` (partial, institution), `oai-pmh` (tenant), `datacite` (tenant), `z39.50` (tenant); `orcid` and `lti` unknown; `scim`, `oneroster`, `ed-fi`, `caliper`, `qti`, `crossref` absent.
 
 ## Plans
 
@@ -98,22 +109,31 @@ Education, Higher Education, University, Research Data, Open Data, Library, Cana
 ## Timestamps
 
 - Created: 2026-06-03
-- Modified: 2026-06-03
+- Modified: 2026-08-30
 
 ## Common Properties
 
 - Website: https://www.ualberta.ca/
-- Developer Portal (placeholder / pre-launch): https://api.ualberta.ca/
+- Developer Portal (placeholder — no portal, no catalog, no key issuance): https://api.ualberta.ca/
+- Identity Federation: https://login.ualberta.ca/saml2/idp/metadata.php
+- Research Repository: https://ualberta.scholaris.ca/
+- Open Data: https://www.ualberta.ca/en/library/research-support/open-data/index.html
+- Library Catalog: https://search.library.ualberta.ca/
+- Course Catalog (HTML only): https://apps.ualberta.ca/catalogue
+- AI Policy: https://www.ualberta.ca/en/artificial-intelligence/artificial-intelligence-framework.html
 - GitHub: https://github.com/ualbertalib
+- Privacy: https://www.ualberta.ca/en/privacy.html
 - LinkedIn: https://www.linkedin.com/school/university-of-alberta/
 
 ## Notes
 
-- `api.ualberta.ca` is live (HTTP 200) but is only a placeholder stating the institution is "currently working to improve the way data is cataloged, shared, and governed." No self-service developer portal or documented institutional APIs exist yet.
-- Borealis is a shared national platform (Scholars Portal / OCUL); the UAlberta presence is the institution's research data collection (subtree `ualberta`) on it. The Search API and OAI-PMH endpoint were both probed live (HTTP 200).
-- There is no official course/timetable/SIS API. The course catalogue and Bear Tracks are web-only. A third-party unofficial scraping API (Heroku) is dead (HTTP 404) and is not cataloged as an institutional API.
-- The legacy `dataverse.library.ualberta.ca` host did not resolve (migrated to Borealis).
-- No endpoints were fabricated; every cataloged API was verified live on 2026-06-03.
+- **Twenty files were removed on 2026-08-30.** Two OpenAPI documents describing the Borealis/Dataverse Native and Search API had been saved here as the university's, along with the pristine original, the refine report, and sixteen artifacts derived from them (collections, JSON Schema, JSON Structure, examples, rulesets, vocabulary, JSON-LD context, authentication and agentic-access). `borealisdata.ca` is a shared consortium host claimed by six institutions in this catalog; the contract is Dataverse's software API, not the University of Alberta's engineering. The tenant relationship is kept; the misattributed contract is not.
+- `api.ualberta.ca` is live (HTTP 200) but is a placeholder stating the institution is "currently working to improve the way data is cataloged, shared, and governed", with an email address and nothing else. `data.ualberta.ca` serves the byte-identical page.
+- ERA migrated off the library's own Jupiter application onto Scholaris; the library's DataCite record documents the March 2025 credential handover in its own words.
+- There is no official course/timetable/SIS API. `apps.ualberta.ca/api` returns 404 and every `.json` path on the catalogue returns 410, which is why the third-party UAlberta course APIs that exist are HTML scrapers.
+- The library's Open Journal Systems installation is gone — `journals.library.ualberta.ca` 302s to a library publishing page — so there is no institution-operated Crossref depositing surface.
+- `library.ualberta.ca/peel/api` returns HTTP 200 but the body is the generic library page: a soft-404, not a surface.
+- No endpoints were fabricated. Every surface above was probed live on 2026-08-30 and every status code is recorded in `x-coverage.evidence` in `apis.yml`.
 
 ## Maintainers
 

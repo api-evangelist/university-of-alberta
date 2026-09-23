@@ -4,8 +4,10 @@ schema: https://www.finops.org/framework/
 provider: University of Alberta
 providerId: university-of-alberta
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-08-30'
 reconciled: false
+method: generated
+generated: '2026-08-30'
 tags:
 - Education
 - Higher Education
@@ -17,7 +19,10 @@ description: >-
   APIs carry no usage-based billing; there is no invoiced cost to allocate or optimize.
   FinOps relevance is limited to the institution's own internal cloud/infrastructure
   cost management, which is not publicly disclosed.
-notes: No public usage-based API billing; University of Alberta's APIs are free/open or affiliation-gated.
+notes: >-
+  No public usage-based API billing. The university operates no API product; the surfaces
+  attributed to it are vendor-platform tenancies whose costs are institutional subscriptions,
+  not metered API spend.
 sources:
 - https://raw.githubusercontent.com/api-evangelist/university-of-alberta/refs/heads/main/apis.yml
 - https://www.finops.org/framework/

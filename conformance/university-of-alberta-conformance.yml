@@ -1,0 +1,106 @@
+generated: '2026-08-30'
+method: probed
+source: >-
+  Live HTTP/TCP probes of University of Alberta and University of Alberta tenant hosts, run
+  2026-08-30. No conformance below is read from a prose claim; each carries the URL that was
+  fetched and the status code it returned.
+note: >-
+  Conformance targets are the Kin Score `education` regime standards[]: scim, lti, oneroster,
+  ed-fi, caliper, qti, oai-pmh, shibboleth, saml, orcid, datacite, crossref. Only standards with
+  a fetched artifact behind them are marked conforms: true. Each entry names the operator of the
+  thing that conforms, because for a university that is rarely the institution itself.
+standards:
+- id: saml
+  conforms: true
+  x-operator: institution
+  evidence: >-
+    https://login.ualberta.ca/saml2/idp/metadata.php returns 200 application/samlmetadata+xml
+    (11,348 bytes) — a SAML 2.0 md:EntityDescriptor with
+    entityID="https://login.ualberta.ca/saml2/idp/metadata.php", md:IDPSSODescriptor,
+    SingleSignOnService (HTTP-Redirect and HTTP-POST) at
+    https://login.ualberta.ca/saml2/idp/SSOService.php, SingleLogoutService, and
+    md:OrganizationName "University of Alberta" / "Université de l'Alberta" with
+    OrganizationURL https://www.ualberta.ca/. Institution-operated: the host is under the
+    university's own registrable domain and the contacts are @ualberta.ca role addresses.
+- id: shibboleth
+  conforms: partial
+  x-operator: institution
+  evidence: >-
+    The same metadata document carries the Shibboleth metadata extension namespace
+    urn:mace:shibboleth:metadata:1.0 with <shibmd:Scope regexp="false">ualberta.ca</shibmd:Scope>,
+    plus <mdrpi:RegistrationInfo registrationAuthority="urn:mace:ualberta.ca"/> and mdui:DisplayName
+    for discovery-service rendering. Partial, not full: the scoped-attribute and MDUI extensions
+    a Shibboleth federation consumes are present, but the IdP itself is served from
+    /saml2/idp/metadata.php (SimpleSAMLphp-style paths); every /idp/* Shibboleth IdP path probed
+    on login.ualberta.ca returned 404.
+- id: oai-pmh
+  conforms: true
+  x-operator: tenant
+  evidence: >-
+    Two live OAI-PMH 2.0 endpoints serve University of Alberta material, neither on an
+    institution host. (1) https://ualberta.scholaris.ca/server/oai/request?verb=Identify returns
+    200 text/xml with repositoryName "ERA: Education and Research Archive", protocolVersion 2.0,
+    granularity YYYY-MM-DDThh:mm:ssZ, earliestDatestamp 2025-04-30, adminEmail erahelp@ualberta.ca
+    — the institution's own service desk on OCUL/Scholars Portal's national DSpace 8.4 platform.
+    The institution's own https://era.library.ualberta.ca/oai?verb=Identify 200s by redirecting
+    to it. (2) https://borealisdata.ca/oai?verb=Identify returns 200 with repositoryName
+    "Borealis Dataverse OAI Archive", adminEmail info@borealisdata.ca — the consortium's shared
+    archive, from which the university's collection is harvested by set, not a UAlberta endpoint.
+- id: datacite
+  conforms: true
+  x-operator: tenant
+  evidence: >-
+    https://api.datacite.org/repositories?query=alberta returns 200 with repository id
+    "ualberta.library", symbol UALBERTA.LIBRARY, name "University of Alberta Library",
+    member since 2020. https://api.datacite.org/dois?client-id=ualberta.library returns
+    meta.total = 90,338 DOIs registered under that client. The registration and the DOIs are the
+    institution's; the registry and its API are DataCite's.
+- id: orcid
+  conforms: unknown
+  x-operator: null
+  evidence: >-
+    No institution-published ORCID integration artifact was found. ualberta.scholaris.ca exposes
+    a DSpace 8.4 REST root at /server/api (200 application/hal+json) but
+    /server/api/config/properties returns 405, so the ORCID configuration could not be read
+    without an authenticated call. Recorded as unknown rather than false.
+- id: lti
+  conforms: unknown
+  x-operator: null
+  evidence: >-
+    The university runs Canvas (eClass) as its LMS, which is LTI-capable, but no
+    institution-published LTI registration, tool configuration or platform issuer document was
+    found on any ualberta.ca host. A vendor capability is not an institutional conformance.
+- id: scim
+  conforms: false
+  evidence: No SCIM service-provider configuration was found on any ualberta.ca host.
+- id: oneroster
+  conforms: false
+  evidence: No OneRoster endpoint or CSV bundle was found on any ualberta.ca host.
+- id: ed-fi
+  conforms: false
+  evidence: Ed-Fi is a K-12 data standard; no Ed-Fi ODS/API surface exists here.
+- id: caliper
+  conforms: false
+  evidence: No Caliper Analytics sensor or event store is published.
+- id: qti
+  conforms: false
+  evidence: No QTI item bank or assessment interchange surface is published.
+- id: crossref
+  conforms: false
+  evidence: >-
+    The library's Open Journal Systems installation at https://journals.library.ualberta.ca/ no
+    longer resolves to OJS — every path, including /index.php/index/oai?verb=Identify, 302s to
+    https://www.ualberta.ca/en/library/publishing/index.html (200, HTML). With the OJS deployment
+    gone there is no institution-operated Crossref depositing surface to probe.
+- id: z39.50
+  conforms: true
+  x-operator: tenant
+  x-note: >-
+    Not an `education` regime standard, recorded because the institution documents it itself and
+    it is one of the few machine interfaces it names in its own words.
+  evidence: >-
+    https://www.ualberta.ca/en/library/research-support/open-data/z3950.html returns 200 and
+    publishes host ualberta.alma.exlibrisgroup.com, port 1921, database 01UOA_INST, and states
+    support for the Bath Profile v1.1 functional area A levels 0 and 1 with the bib-1 attribute
+    combinations enumerated. TCP connect to ualberta.alma.exlibrisgroup.com:1921 succeeded on
+    2026-08-30. The catalog is the institution's; the Alma server is Ex Libris's.

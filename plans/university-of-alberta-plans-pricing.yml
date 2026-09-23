@@ -4,19 +4,23 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: University of Alberta
 providerId: university-of-alberta
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-08-30'
 reconciled: false
+method: generated
+generated: '2026-08-30'
 tags:
 - Education
 - Higher Education
 - University
 - Plans
 description: >-
-  University of Alberta is a non-commercial higher-education institution; its APIs are not sold
-  as a commercial product. Public APIs (library, repository, course, and open-metadata
-  interfaces) are offered free of charge, typically for non-commercial use. Most
-  administrative and identity APIs are not openly self-service and require institutional
-  affiliation, credentials, or federation membership rather than a paid plan.
+  University of Alberta is a non-commercial higher-education institution and sells no API
+  product. It operates no public REST API of its own; the machine-readable surfaces its
+  community uses are vendor-platform tenancies (Scholaris/DSpace, Borealis/Dataverse, Ex Libris
+  Alma and Primo VE, DataCite) whose terms are the platform operator's, plus the university's
+  own SAML 2.0 identity provider, which is free to federate with but is gated by federation
+  membership rather than by a paid plan. There is no key issuance, no signup and no price
+  anywhere on api.ualberta.ca, which is a placeholder page.
 notes: >-
   No published per-seat or per-call commercial pricing. "Free / Open" reflects open
   public endpoints; "Affiliation / Credentialed" reflects access gated by institutional

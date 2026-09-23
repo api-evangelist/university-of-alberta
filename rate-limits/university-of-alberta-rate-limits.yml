@@ -4,18 +4,22 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: University of Alberta
 providerId: university-of-alberta
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-08-30'
 reconciled: false
+method: generated
+generated: '2026-08-30'
 tags:
 - Education
 - Higher Education
 - University
 - Rate Limiting
 description: >-
-  University of Alberta does not publish a unified public rate-limit table across its APIs. Open
-  metadata and harvesting endpoints (OAI-PMH, IIIF, library) may throttle large-scale
-  or automated harvesting; clients should harvest politely, honor Retry-After, and
-  contact the relevant service for bulk access.
+  University of Alberta publishes no rate-limit table, and has no institution-operated API to
+  publish one for. The endpoints its community harvests belong to vendor platforms — the
+  OAI-PMH and DSpace REST endpoints on ualberta.scholaris.ca, the Dataverse Native and Search
+  APIs on borealisdata.ca, and the Ex Libris Alma Z39.50 server — and any throttling there is
+  the platform operator's, not the university's. Harvest politely, honor Retry-After, and take
+  bulk requests to the operating platform.
 notes: Confirm per-service limits with each API's documentation; harvest responsibly.
 sources:
 - https://raw.githubusercontent.com/api-evangelist/university-of-alberta/refs/heads/main/apis.yml
