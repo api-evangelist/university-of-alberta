@@ -208,7 +208,7 @@ apis:
     humanURL: https://github.com/ualbertalib
     tags:
       - Library
-      - Open-Source
+      - Open Source
       - Repository
       - Tooling
     tags_raw:
@@ -216,6 +216,7 @@ apis:
       - Open Source
       - Repository
       - Tooling
+      - Open-Source
     properties:
       - type: SourceCode
         url: https://github.com/ualbertalib
